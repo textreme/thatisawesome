@@ -43,7 +43,8 @@ class WooThemes_Sensei_Course {
 	 */
 	public function __construct () {
 		// Setup meta fields for this post type
-		$this->meta_fields = array( 'course_prerequisite', 'course_featured', 'course_video_embed', 'course_woocommerce_product' );
+		$this->meta_fields = array( 'course_category', // HACK
+		  'course_prerequisite', 'course_featured', 'course_video_embed', 'course_woocommerce_product' );
 		// Admin actions
 		if ( is_admin() ) {
 			// Metabox functions
@@ -71,6 +72,8 @@ class WooThemes_Sensei_Course {
 			// Add Meta Box for WooCommerce Course
 			add_meta_box( 'course-wc-product', __( 'WooCommerce Product', 'woothemes-sensei' ), array( &$this, 'course_woocommerce_product_meta_box_content' ), $this->token, 'side', 'default' );
 		} // End If Statement
+		// HACK: Add Meta Box for Categories
+    add_meta_box( 'course-category', __( 'Category', 'woothemes-sensei' ), array( &$this, 'course_category_meta_box_content' ), $this->token, 'side', 'default' );
 		// Add Meta Box for Prerequisite Course
 		add_meta_box( 'course-prerequisite', __( 'Course Prerequisite', 'woothemes-sensei' ), array( &$this, 'course_prerequisite_meta_box_content' ), $this->token, 'side', 'default' );
 		// Add Meta Box for Featured Course
@@ -127,6 +130,47 @@ class WooThemes_Sensei_Course {
 		echo $html;	
 		
 	} // End course_woocommerce_product_meta_box_content()
+	
+	/**
+   * HACK: course_category_meta_box_content function.
+   * 
+   * @access public
+   * @return void
+   */
+  public function course_category_meta_box_content () {
+    global $post;
+    
+    $select_course_category = get_post_meta( $post->ID, '_course_category', true );
+    
+    $post_args = array( 'post_type'     => 'page',
+              'numberposts'     => -1,
+              'orderby'           => 'title',
+                'order'             => 'DESC',
+                'exclude'       => $post->ID,
+                'meta_key' => '_wp_page_template',
+                'meta_value' => 'page-subcategory.php',
+              'suppress_filters'  => 0 
+              );
+    $posts_array = get_posts( $post_args );
+    
+    $html = '';
+    
+    $html .= '<input type="hidden" name="' . esc_attr( 'woo_' . $this->token . '_noonce' ) . '" id="' . esc_attr( 'woo_' . $this->token . '_noonce' ) . '" value="' . esc_attr( wp_create_nonce( plugin_basename(__FILE__) ) ) . '" />';
+    
+    if ( count( $posts_array ) > 0 ) {
+      $html .= '<select name="course_category" class="widefat">' . "\n";
+      $html .= '<option value="">' . __( 'None', 'woothemes-sensei' ) . '</option>';
+        foreach ($posts_array as $post_item){
+          $html .= '<option value="' . esc_attr( absint( $post_item->ID ) ) . '"' . selected( $post_item->ID, $select_course_category, false ) . '>' . esc_html( $post_item->post_title ) . '</option>' . "\n";
+        } // End For Loop
+      $html .= '</select>' . "\n";
+    } else {
+      $html .= '<p>' . esc_html( __( 'No categories exist yet. Please add some first.', 'woothemes-sensei' ) ) . '</p>';
+    } // End If Statement
+    
+    echo $html; 
+    
+  } // End course_category_meta_box_content()
 	
 	/**
 	 * course_prerequisite_meta_box_content function.
