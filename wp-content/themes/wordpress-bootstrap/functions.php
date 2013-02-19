@@ -68,7 +68,7 @@ function bones_register_sidebars() {
     register_sidebar(array(
     	'id' => 'sidebar1',
     	'name' => 'Main Sidebar',
-    	'description' => 'Used on every page BUT the homepage page template.',
+    	'description' => 'Used on all page templates.',
     	'before_widget' => '<div id="%1$s" class="widget %2$s">',
     	'after_widget' => '</div>',
     	'before_title' => '<h4 class="widgettitle">',
@@ -76,9 +76,9 @@ function bones_register_sidebars() {
     ));
     
     register_sidebar(array(
-    	'id' => 'sidebar2',
-    	'name' => 'Homepage Sidebar',
-    	'description' => 'Used only on the homepage page template.',
+    	'id' => 'course',
+    	'name' => 'Course Sidebar',
+    	'description' => 'Used only on the course/lesson template.',
     	'before_widget' => '<div id="%1$s" class="widget %2$s">',
     	'after_widget' => '</div>',
     	'before_title' => '<h4 class="widgettitle">',
@@ -382,7 +382,7 @@ function first_paragraph($content){
     if( is_page_template( 'page-homepage.php' ) )
         return $content;
     else
-        return preg_replace('/<p([^>]+)?>/', '<p$1 class="lead">', $content, 1);
+        return $content; /* return preg_replace('/<p([^>]+)?>/', '<p$1 class="lead">', $content, 1); */
 }
 add_filter('the_content', 'first_paragraph');
 

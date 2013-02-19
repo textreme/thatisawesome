@@ -23,7 +23,7 @@ switch( $template ) {
 		
 	// Default
 	default :
-		echo '<div id="content" class="page col-full"><div id="main" class="col-left">';
+		echo '<div id="content" class="page clearfix row-fluid"><div id="main" class="span9 clearfix">';
 		break;
 }
 

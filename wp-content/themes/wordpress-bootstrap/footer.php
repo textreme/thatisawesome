@@ -1,23 +1,21 @@
 			<footer role="contentinfo">
 			
 				<div id="inner-footer" class="clearfix">
-		          <hr />
-		          <div id="widget-footer" class="clearfix row-fluid">
-		            <?php if ( !function_exists('dynamic_sidebar') || !dynamic_sidebar('footer1') ) : ?>
-		            <?php endif; ?>
-		            <?php if ( !function_exists('dynamic_sidebar') || !dynamic_sidebar('footer2') ) : ?>
-		            <?php endif; ?>
-		            <?php if ( !function_exists('dynamic_sidebar') || !dynamic_sidebar('footer3') ) : ?>
-		            <?php endif; ?>
-		          </div>
+				  
+          <div id="widget-footer" class="clearfix row-fluid">
+            <?php if ( !function_exists('dynamic_sidebar') || !dynamic_sidebar('footer1') ) : ?>
+            <?php endif; ?>
+            <?php if ( !function_exists('dynamic_sidebar') || !dynamic_sidebar('footer2') ) : ?>
+            <?php endif; ?>
+            <?php if ( !function_exists('dynamic_sidebar') || !dynamic_sidebar('footer3') ) : ?>
+            <?php endif; ?>
+          </div>
+          
+          <p class="attribution pull-left">&copy; <?= date('Y') ?> <?php bloginfo('name'); ?></p>
 					
-					<nav class="clearfix">
+					<nav class="pull-right">
 						<?php bones_footer_links(); // Adjust using Menus in Wordpress Admin ?>
-					</nav>
-					
-					<p class="pull-right"><a href="http://320press.com" id="credit320" title="By the dudes of 320press">320press</a></p>
-			
-					<p class="attribution">&copy; <?php bloginfo('name'); ?></p>
+					</nav>					
 				
 				</div> <!-- end #inner-footer -->
 				

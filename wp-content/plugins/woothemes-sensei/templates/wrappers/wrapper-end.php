@@ -33,7 +33,7 @@ switch( $template ) {
 	default :
 	?>
 		</div>	
-		<?php get_sidebar(); ?>
+		<?php get_sidebar('course'); ?>
 	</div>
 	<?php
 		break;

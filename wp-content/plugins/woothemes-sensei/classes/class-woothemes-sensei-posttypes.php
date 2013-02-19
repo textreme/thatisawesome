@@ -136,8 +136,9 @@ class WooThemes_Sensei_PostTypes {
 		    'has_archive' => true, 
 		    'hierarchical' => false,
 		    'menu_position' => 20, // Below "Pages"
-		    'menu_icon' => esc_url( $woothemes_sensei->plugin_url . 'assets/images/icon_course_16.png' ), 
-		    'supports' => $supports_array
+		    'menu_icon' => esc_url( $woothemes_sensei->plugin_url . 'assets/images/icon_course_16.png' ),
+		    'supports' => $supports_array,
+		    'taxonomies' => array('category') // HACK: Register category taxonomy
 		);
 
 		register_post_type( 'lesson', $args );

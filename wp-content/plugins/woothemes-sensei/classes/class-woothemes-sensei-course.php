@@ -140,7 +140,7 @@ class WooThemes_Sensei_Course {
   public function course_category_meta_box_content () {
     global $post;
     
-    $select_course_category = get_post_meta( $post->ID, '_course_category', true );
+    //$select_course_category = get_post_meta( $post->ID, '_course_category', true );
     
     $post_args = array( 'post_type'     => 'page',
               'numberposts'     => -1,
@@ -158,10 +158,10 @@ class WooThemes_Sensei_Course {
     $html .= '<input type="hidden" name="' . esc_attr( 'woo_' . $this->token . '_noonce' ) . '" id="' . esc_attr( 'woo_' . $this->token . '_noonce' ) . '" value="' . esc_attr( wp_create_nonce( plugin_basename(__FILE__) ) ) . '" />';
     
     if ( count( $posts_array ) > 0 ) {
-      $html .= '<select name="course_category" class="widefat">' . "\n";
-      $html .= '<option value="">' . __( 'None', 'woothemes-sensei' ) . '</option>';
+      $html .= '<select name="post_parent" class="widefat">' . "\n";
+      $html .= '<option value="0">' . __( 'None', 'woothemes-sensei' ) . '</option>';
         foreach ($posts_array as $post_item){
-          $html .= '<option value="' . esc_attr( absint( $post_item->ID ) ) . '"' . selected( $post_item->ID, $select_course_category, false ) . '>' . esc_html( $post_item->post_title ) . '</option>' . "\n";
+          $html .= '<option value="' . esc_attr( absint( $post_item->ID ) ) . '"' . selected( $post_item->ID, $post->post_parent, false ) . '>' . esc_html( $post_item->post_title ) . '</option>' . "\n";
         } // End For Loop
       $html .= '</select>' . "\n";
     } else {

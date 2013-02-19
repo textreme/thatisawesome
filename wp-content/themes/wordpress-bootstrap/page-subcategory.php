@@ -8,7 +8,7 @@ Template Name: Sub-Category Page
       
       <div id="content" class="clearfix row-fluid">
             
-              <?php get_sidebar(); // sidebar 1 ?>
+        <?php get_sidebar(); // sidebar 1 ?>
       
         <div id="main" class="span8 clearfix" role="main">
 
@@ -27,15 +27,9 @@ Template Name: Sub-Category Page
           
             </section> <!-- end article section -->
             
-            <footer>
-      
-              <p class="clearfix"><?php the_tags('<span class="tags">' . __("Tags","bonestheme") . ': ', ', ', '</span>'); ?></p>
-              
-            </footer> <!-- end article footer -->
+            <footer></footer> <!-- end article footer -->
           
           </article> <!-- end article -->
-          
-          <?php comments_template(); ?>
           
           <?php endwhile; ?>  
           
@@ -53,6 +47,16 @@ Template Name: Sub-Category Page
           </article>
           
           <?php endif; ?>
+          
+          <ul>
+          <?php
+          // retrieve all this category's courses
+          $args = array( 'posts_per_page' => -1, 'post_parent'=> $post->ID, 'post_type' => 'course', 'orderby' => 'menu_order', 'order' => 'ASC' );
+          $courses = get_posts( $args );
+          foreach( $courses as $course ) : ?>
+            <li><a href="<?= get_permalink($course->ID); ?>"><?= $course->post_title ?></a></li>
+          <?php endforeach; ?>
+          </ul>
       
         </div> <!-- end #main -->
     
