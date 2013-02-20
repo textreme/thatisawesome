@@ -50,6 +50,10 @@
 
 		<!-- theme options from options panel -->
 		<?php get_wpbs_theme_options(); ?>
+		
+		<script type="text/javascript"
+       src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    </script>
 
 		<?php 
 
