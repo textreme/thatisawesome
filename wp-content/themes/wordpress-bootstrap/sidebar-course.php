@@ -1,4 +1,4 @@
-				<div id="sidebar-course" class="fluid-sidebar sidebar span3" role="complementary">
+				<div id="sidebar-course" class="sidebar span3" role="complementary">
 				  
 				  <?php
 				  
@@ -35,10 +35,15 @@
                     <?= $category->name ?>
                   </a>
                 </div>
-                <div id="<?= $category->slug ?>" class="accordion-body collapse<?=($current_category->cat_ID==$category->catID)?' in':''?>">
+                <div id="<?= $category->slug ?>" class="accordion-body collapse<?=($current_category->term_id==$category->term_id)?' in':''?>">
                   <div class="accordion-inner">
                     <?php foreach($lessons as $lesson) { ?>
-                      <a href="<?= get_permalink($lesson->ID); ?>"><?= $lesson->post_title ?></a>
+                      <a href="<?= get_permalink($lesson->ID); ?>" class="<?=($post->ID==$lesson->ID)?'selected':''?>">
+                        <?php if ( has_post_thumbnail($lesson->ID) ) {
+                          echo get_the_post_thumbnail( $lesson->ID, 'thumbnail' );
+                        } ?>
+                        <?= $lesson->post_title ?>
+                      </a>
                       <?php
                     } ?>
                   </div>

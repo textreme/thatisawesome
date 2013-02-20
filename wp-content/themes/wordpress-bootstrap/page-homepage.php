@@ -6,7 +6,7 @@ Template Name: Homepage
 
 <?php get_header(); ?>
 			
-			<div id="content" class="clearfix row-fluid">
+			<div id="content" class="clearfix row">
 			
 				<div id="main" class="span12 clearfix" role="main">
 

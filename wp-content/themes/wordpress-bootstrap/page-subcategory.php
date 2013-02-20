@@ -6,7 +6,7 @@ Template Name: Sub-Category Page
 
 <?php get_header(); ?>
       
-      <div id="content" class="clearfix row-fluid">
+      <div id="content" class="clearfix row">
             
         <?php get_sidebar(); // sidebar 1 ?>
       
@@ -48,13 +48,23 @@ Template Name: Sub-Category Page
           
           <?php endif; ?>
           
-          <ul>
+          <ul class="thumbnails">
           <?php
           // retrieve all this category's courses
           $args = array( 'posts_per_page' => -1, 'post_parent'=> $post->ID, 'post_type' => 'course', 'orderby' => 'menu_order', 'order' => 'ASC' );
           $courses = get_posts( $args );
           foreach( $courses as $course ) : ?>
-            <li><a href="<?= get_permalink($course->ID); ?>"><?= $course->post_title ?></a></li>
+            <li class="span3">
+              <a class="thumbnail" href="<?= get_permalink($course->ID); ?>">
+                <?php if ( has_post_thumbnail($course->ID) ) {
+                  echo get_the_post_thumbnail( $course->ID, 'full' );
+                } else { ?>
+                  <img src="http://placehold.it/270x270" alt="">
+                <?php } ?>
+                <h5><?= $course->post_title ?></h5>
+                <p><?= $course->post_excerpt ?></p>
+              </a>
+            </li>
           <?php endforeach; ?>
           </ul>
       

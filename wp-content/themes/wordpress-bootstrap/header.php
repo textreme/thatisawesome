@@ -95,7 +95,7 @@
 				
 				<div class="navbar navbar-fixed-top">
 					<div class="navbar-inner">
-						<div class="container-fluid nav-container">
+						<div class="container nav-container">
 							<nav role="navigation">
 								<a class="brand" id="logo" title="<?php echo get_bloginfo('description'); ?>" href="<?php echo home_url(); ?>"><?php bloginfo('name'); ?></a>
 								
@@ -125,4 +125,35 @@
 		
 		</header> <!-- end header -->
 		
-		<div class="container-fluid">
+		<div class="container">
+		  
+		  <!-- featured image for pages -->
+		  <?php if ( $post->post_type=='page' && has_post_thumbnail($post->ID) ) { ?>        
+        <div class="row">        
+          <div class="span12 featured_image"><?= get_the_post_thumbnail( $post->ID, 'full' ); ?></div>
+        </div>
+      <?php } elseif ( $post->post_type=='page' && has_post_thumbnail($post->post_parent) ) { ?>
+        <div class="row">        
+          <div class="span12 featured_image"><?= get_the_post_thumbnail( $post->post_parent, 'full' ); ?></div>
+        </div>
+      <?php } ?>
+      
+      <!-- breadcrumbs -->
+      <?php if ( !is_front_page() ) {
+        if ( $post->post_type=='lesson' ) {
+          $course_id = get_post_meta($post->ID, '_lesson_course', true);
+          $ancestors = get_post_ancestors( $course_id );
+          array_unshift( $ancestors, $course_id );
+        } else {
+          $ancestors = get_post_ancestors( $post->ID );
+        }        
+        $ancestors = array_reverse( $ancestors );
+        ?>      
+      <ul class="breadcrumb">
+        <li><a href="<?= get_home_url() ?>">Home</a> <span class="divider">/</span></li>
+        <?php foreach( $ancestors as $aid ) { ?>
+          <li><a href="<?= get_permalink($aid) ?>"><?= get_the_title($aid) ?></a> <span class="divider">/</span></li>
+        <?php } ?>        
+        <li class="active"><?= the_title() ?></li>
+      </ul>
+      <?php } ?>

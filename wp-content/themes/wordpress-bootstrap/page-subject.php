@@ -6,11 +6,11 @@ Template Name: Subject Page
 
 <?php get_header(); ?>
       
-      <div id="content" class="clearfix row-fluid">
+      <div id="content" class="clearfix row">
             
-              <?php get_sidebar(); // sidebar 1 ?>
+        <?php get_sidebar(); // sidebar 1 ?>
       
-        <div id="main" class="span8 clearfix" role="main">
+        <div id="main" class="span9 clearfix" role="main">
 
           <?php if (have_posts()) : while (have_posts()) : the_post(); ?>
           
@@ -34,8 +34,6 @@ Template Name: Subject Page
             </footer> <!-- end article footer -->
           
           </article> <!-- end article -->
-          
-          <?php comments_template(); ?>
           
           <?php endwhile; ?>  
           

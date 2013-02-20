@@ -1,8 +1,8 @@
 <?php get_header(); ?>
 			
-			<div id="content" class="clearfix row-fluid">
+			<div id="content" class="clearfix row">
 			
-				<div id="main" class="span8 clearfix" role="main">
+				<div id="main" class="span12 clearfix" role="main">
 				
 					<div class="page-header">
 					<?php if (is_category()) { ?>
@@ -90,8 +90,6 @@
 					<?php endif; ?>
 			
 				</div> <!-- end #main -->
-    
-				<?php get_sidebar(); // sidebar 1 ?>
     
 			</div> <!-- end #content -->
 

@@ -6,7 +6,7 @@ Template Name: Category Page
 
 <?php get_header(); ?>
       
-      <div id="content" class="clearfix row-fluid">
+      <div id="content" class="clearfix row">
             
         <?php get_sidebar(); // sidebar 1 ?>
       
