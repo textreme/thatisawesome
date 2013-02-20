@@ -2,7 +2,7 @@
 			
 			<div id="content" class="clearfix row-fluid">
 			
-				<div id="main" class="span9 clearfix" role="main">
+				<div id="main" class="span12 clearfix" role="main">
 
 					<?php if (have_posts()) : while (have_posts()) : the_post(); ?>
 					
@@ -27,8 +27,6 @@
 					
 					</article> <!-- end article -->
 					
-					<?php comments_template('',true); ?>
-					
 					<?php endwhile; ?>		
 					
 					<?php else : ?>
@@ -47,8 +45,6 @@
 					<?php endif; ?>
 			
 				</div> <!-- end #main -->
-    
-				<?php get_sidebar(); // sidebar 1 ?>
     
 			</div> <!-- end #content -->
 

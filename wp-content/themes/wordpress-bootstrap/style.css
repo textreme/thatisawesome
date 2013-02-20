@@ -91,6 +91,24 @@ p.tags{
 	line-height: 20px;
 }
 
+/* sidebar */
+.page-template .sidebar  ul ul,
+.page-template .sidebar .current_page_item ul ul,
+.page-template .sidebar .current_page_ancestor ul ul,
+.page-template .sidebar .current_page_ancestor .current_page_item ul ul,
+.page-template .sidebar .current_page_ancestor .current_page_ancestor ul ul {
+  display: none;
+}
+
+.page-template .sidebar .current_page_item ul,
+.page-template .sidebar .current_page_ancestor ul,
+.page-template .sidebar .current_page_ancestor .current_page_item ul,
+.page-template .sidebar .current_page_ancestor .current_page_ancestor ul,
+.page-template .sidebar .current_page_ancestor .current_page_ancestor .current_page_item ul,
+.page-template .sidebar .current_page_ancestor .current_page_ancestor .current_page_ancestor ul {
+  display: block;
+}
+
 /* media */
 
 div[id*='attachment_']{
