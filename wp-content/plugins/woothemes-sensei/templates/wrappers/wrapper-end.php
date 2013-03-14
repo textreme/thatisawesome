@@ -10,30 +10,30 @@
 $template = get_option('template');
 
 switch( $template ) {
-	
+
 	// IF Twenty Eleven
 	case 'twentyeleven' :
 	?>
 			</div>
-		</div>	
+		</div>
 	<?php
 		break;
-	
+
 	// IF Twenty Twelve
 	case 'twentytwelve' :
 	?>
 			</div>
 		</div>
-		<?php get_sidebar(); ?>		
+		<?php get_sidebar(); ?>
 	</div>
 	<?php
 		break;
-	
+
 	// Default
 	default :
 	?>
-		</div>	
-		<?php get_sidebar('course'); ?>
+		</div>
+		<?php get_sidebar(); ?>
 	</div>
 	<?php
 		break;
