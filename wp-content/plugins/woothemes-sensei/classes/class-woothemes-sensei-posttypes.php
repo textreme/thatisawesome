@@ -316,7 +316,7 @@ class WooThemes_Sensei_PostTypes {
 			'rewrite' => array( 'slug' => esc_attr( apply_filters( 'sensei_course_category_slug', 'course-category' ) ) )
 		);
 
-		register_taxonomy( 'course-category', array( 'course' ), $args );
+		register_taxonomy( 'course-category', array( 'course','lesson' ), $args );
 	} // End setup_course_category_taxonomy()
 
 	/**
