@@ -122,6 +122,7 @@ class WooThemes_Sensei_PostTypes {
 		    'publicly_queryable' => true,
 		    'show_ui' => true,
 		    'show_in_menu' => 'edit.php?post_type=lesson',
+		    'show_in_nav_menus' => true,
 		    'query_var' => true,
 		    'rewrite' => array( 'slug' => esc_attr( apply_filters( 'sensei_course_slug', 'course' ) ) , 'with_front' => true, 'feeds' => true, 'pages' => true ),
 		    'map_meta_cap' => true,
@@ -308,8 +309,10 @@ class WooThemes_Sensei_PostTypes {
 			'hierarchical' => true,
 			'labels' => $labels,
 			'show_ui' => true,
+			'public' => true,
 			'query_var' => true,
-			'show_in_nav_menus' => false,
+			'show_in_nav_menus' => true,
+			'show_admin_column' => true,
 			'rewrite' => array( 'slug' => esc_attr( apply_filters( 'sensei_course_category_slug', 'course-category' ) ) )
 		);
 
