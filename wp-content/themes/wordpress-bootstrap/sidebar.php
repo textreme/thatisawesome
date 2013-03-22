@@ -1,19 +1,54 @@
 				<div id="sidebar1" class="sidebar span3" role="complementary">
 				  
 				  <ul class="nav nav-tabs nav-stacked">
-				  <?php 
-				  /* show the tree of the current page's highest level ancestor */
-          if ( is_page_template( 'page-subject.php' ) ) {
-            $highest_parent = $post->ID;
-          } else {
-            $parents = get_post_ancestors( $post->ID );
-            $highest_parent = (empty($parents)) ? 0 : array_pop($parents);
-          }
-          
-				  wp_list_pages( array(
-				    'title_li' => '',
-				    'child_of' => $highest_parent
-          ) ); ?>
+
+          <?php 
+            global $wp_query;
+            
+            $object = $wp_query->get_queried_object();
+            $category_id = 0;
+            $current_category_id = 0;
+            $original_category_id = 0;
+            
+            if ( property_exists( $object, 'taxonomy' ) && $object->taxonomy == 'course-category' ) {              
+              $category_id = $object->term_taxonomy_id;  
+              $current_category_id = $category_id;  
+              
+            } elseif ( property_exists( $object, 'post_type' ) && $object->post_type == 'course' ) {
+              if ( $terms = get_the_terms( $object->ID, 'course-category' ) ) {
+                
+                $term_ids = array();
+                foreach( $terms as $term ) {
+                  array_push( $term_ids, $term->term_id );
+                }
+                foreach( $terms as $term ) {
+                  if ( !in_array( $term->parent, $term_ids) ) {
+                    $category_id = $term->term_taxonomy_id;
+                    $current_category_id = $category_id;
+                  }
+                }                
+              }
+            }
+
+            if ( $parents = get_ancestors( $category_id, 'course-category') ) {
+              $category_id = array_pop($parents);
+              if ( $parents ) {
+                $category_id = array_pop($parents);
+              } elseif ( $current_category_id ) {
+                $category_id = $current_category_id;
+              }
+            }
+            
+            $current_category = get_term_by('id', $category_id, 'course-category');
+            
+            wp_list_categories( array(
+              'title_li' => '<a>'.$current_category->name.'</a>',
+              'child_of' => $category_id,
+              'current_category' => $current_category_id,
+              'taxonomy' => 'course-category'
+            ));
+          ?> 
+
           </ul>
 				
 					<?php if ( is_active_sidebar( 'sidebar1' ) ) : ?>

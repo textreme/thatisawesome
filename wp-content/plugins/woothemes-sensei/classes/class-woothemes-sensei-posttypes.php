@@ -312,7 +312,6 @@ class WooThemes_Sensei_PostTypes {
 			'public' => true,
 			'query_var' => true,
 			'show_in_nav_menus' => true,
-			'show_admin_column' => true,
 			'rewrite' => array( 'slug' => esc_attr( apply_filters( 'sensei_course_category_slug', 'course-category' ) ) )
 		);
 

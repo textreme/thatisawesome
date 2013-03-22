@@ -97,7 +97,7 @@
 		
 			<div id="inner-header" class="clearfix">
 				
-				<div class="navbar navbar-fixed-top">
+				<div class="navbar navbar-inverse navbar-fixed-top">
 					<div class="navbar-inner">
 						<div class="container nav-container">
 							<nav role="navigation">
@@ -115,11 +115,9 @@
 								
 							</nav>
 							
-							<?php if(of_get_option('search_bar', '1')) {?>
 							<form class="navbar-search pull-right" role="search" method="get" id="searchform" action="<?php echo home_url( '/' ); ?>">
 								<input name="s" id="s" type="text" class="search-query" autocomplete="off" placeholder="<?php _e('Search','bonestheme'); ?>" data-provide="typeahead" data-items="4" data-source='<?php echo $typeahead_data; ?>'>
 							</form>
-							<?php } ?>
 							
 						</div>
 					</div>
@@ -132,32 +130,45 @@
 		<div class="container">
 		  
 		  <!-- featured image for pages -->
-		  <?php if ( $post->post_type=='page' && has_post_thumbnail($post->ID) ) { ?>        
+		  <?php if ( $post->post_type=='course' && has_post_thumbnail($post->ID) ) { ?>        
         <div class="row">        
           <div class="span12 featured_image"><?= get_the_post_thumbnail( $post->ID, 'full' ); ?></div>
-        </div>
-      <?php } elseif ( $post->post_type=='page' && has_post_thumbnail($post->post_parent) ) { ?>
-        <div class="row">        
-          <div class="span12 featured_image"><?= get_the_post_thumbnail( $post->post_parent, 'full' ); ?></div>
         </div>
       <?php } ?>
       
       <!-- breadcrumbs -->
       <?php if ( !is_front_page() ) {
-        if ( $post->post_type=='lesson' ) {
-          $course_id = get_post_meta($post->ID, '_lesson_course', true);
+        
+        $object = $wp_query->get_queried_object();
+        $active_title = get_the_title();
+        $ancestors = array();
+        $categories = array();
+        
+        if ( property_exists( $object, 'taxonomy' ) && $object->taxonomy == 'course-category' ) {
+          $categories = get_ancestors( $object->term_taxonomy_id, 'course-category');
+          $active_title = $object->name;         
+          
+        } elseif ( property_exists( $object, 'post_type' ) && $object->post_type == 'course' ) {
+          $ancestors = get_post_ancestors( $object->ID );
+          
+        } elseif ( property_exists( $object, 'post_type' ) && $object->post_type == 'lesson' ) {
+          $course_id = get_post_meta($object->ID, '_lesson_course', true);
           $ancestors = get_post_ancestors( $course_id );
           array_unshift( $ancestors, $course_id );
-        } else {
-          $ancestors = get_post_ancestors( $post->ID );
-        }        
+        }    
+          
         $ancestors = array_reverse( $ancestors );
+        $categories = array_reverse( $categories );
+        
         ?>      
       <ul class="breadcrumb">
         <li><a href="<?= get_home_url() ?>">Home</a> <span class="divider">/</span></li>
         <?php foreach( $ancestors as $aid ) { ?>
           <li><a href="<?= get_permalink($aid) ?>"><?= get_the_title($aid) ?></a> <span class="divider">/</span></li>
-        <?php } ?>        
-        <li class="active"><?= the_title() ?></li>
+        <?php } ?>
+        <?php foreach( $categories as $cid ) { $category = get_term($cid,'course-category'); ?>
+          <li><a href="<?= get_term_link($cid,'course-category') ?>"><?= $category->name ?></a> <span class="divider">/</span></li>
+        <?php } ?>      
+        <li class="active"><?= $active_title ?></li>
       </ul>
       <?php } ?>

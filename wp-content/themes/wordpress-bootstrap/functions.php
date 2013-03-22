@@ -86,6 +86,16 @@ function bones_register_sidebars() {
     ));
     
     register_sidebar(array(
+      'id' => 'lesson',
+      'name' => 'Lesson Sidebar',
+      'description' => 'Used only on the lesson template.',
+      'before_widget' => '<div id="%1$s" class="widget %2$s">',
+      'after_widget' => '</div>',
+      'before_title' => '<h4 class="widgettitle">',
+      'after_title' => '</h4>',
+    ));
+    
+    register_sidebar(array(
       'id' => 'footer1',
       'name' => 'Footer 1',
       'before_widget' => '<div id="%1$s" class="widget span4 %2$s">',
